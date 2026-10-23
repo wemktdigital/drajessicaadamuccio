@@ -1,12 +1,5 @@
 {
-  "failures": [
-    {
-      "page": "/404.html",
-      "bad": [
-        "404 http://127.0.0.1:59339/wp-content/uploads/2022/08/elementor/thumbs/LOGO-DRA-JESSICA-ADAMUCCIO-RGB-APROVADA-pthzm46sxpy5lfyh74m58ocuv1qe71t5chvlc5l2i0.png"
-      ]
-    }
-  ],
+  "failures": [],
   "liveHits": [],
   "brokenImages": []
 }

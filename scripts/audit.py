@@ -6,6 +6,7 @@ import json
 import re
 import ssl
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -24,12 +25,16 @@ CTX = ssl.create_default_context()
 
 
 def fetch(url: str) -> tuple[int, str]:
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
-    try:
-        with urllib.request.urlopen(req, context=CTX, timeout=60) as response:
-            return response.status, response.read().decode("utf-8", "replace")
-    except urllib.error.HTTPError as error:
-        return error.code, error.read().decode("utf-8", "replace")
+    for attempt in range(3):
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        try:
+            with urllib.request.urlopen(req, context=CTX, timeout=90) as response:
+                return response.status, response.read().decode("utf-8", "replace")
+        except urllib.error.HTTPError as error:
+            return error.code, error.read().decode("utf-8", "replace")
+        except Exception:
+            time.sleep(4 * (attempt + 1))
+    return 0, ""
 
 
 def text_of(fragment: str) -> str:
